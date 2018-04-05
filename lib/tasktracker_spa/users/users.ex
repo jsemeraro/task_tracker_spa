@@ -51,9 +51,14 @@ defmodule TasktrackerSpa.Users do
   """
   def create_user(attrs \\ %{}) do
     {:ok, user} = %User{}
-    |> User.changeset(attrs)
+    |> User.create_changeset(attrs)
     |> Repo.insert()
     {:ok, user}
+  end
+
+  def get_and_auth_user(name, pass) do
+    user = Repo.one(from u in User, where: u.name == ^name)
+    Comeonin.Argon2.check_pass(user, pass)
   end
 
   @doc """

@@ -5,6 +5,7 @@ class TheServer {
     $.ajax("/api/v1/tasks", {
       method: "get",
       dataType: "json",
+      headers: this.get_headers(),
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
         store.dispatch({
@@ -19,6 +20,7 @@ class TheServer {
     $.ajax("/api/v1/users", {
       method: "get",
       dataType: "json",
+      headers: this.get_headers(),
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
         store.dispatch({
@@ -33,8 +35,11 @@ class TheServer {
     $.ajax("/api/v1/tasks", {
       method: "post",
       dataType: "json",
+      headers: this.get_headers(),
       contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify({ task: data }),
+      data: JSON.stringify({
+        task: data
+      }),
       success: (resp) => {
         store.dispatch({
           type: 'ADD_TASK',
@@ -45,18 +50,51 @@ class TheServer {
   }
 
   submit_user(data) {
+    console.log(data);
     $.ajax("/api/v1/users", {
       method: "post",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify({ user: data }),
+      data: JSON.stringify({
+        user: data
+      }),
       success: (resp) => {
         store.dispatch({
           type: 'ADD_USER',
           user: resp.data,
         });
+        this.submit_login(data);
       },
     });
+  }
+
+  get_headers() {
+    return {
+      "Authorization": this.get_token()
+    };
+  }
+
+  get_token() {
+    if (store.getState().token) {
+      return store.getState().token.token;
+    }
+  }
+
+  // followed Nat's notes for login
+  submit_login(data) {
+    $.ajax("/api/v1/token", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'SET_TOKEN',
+          token: resp,
+        });
+      },
+    });
+
   }
 }
 

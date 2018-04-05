@@ -7,9 +7,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 
 import Nav from './nav';
-import Feed from './feed';
+import Tasks from './tasks';
 import Users from './users';
-import UserForm from './user-form';
 import TaskForm from './task-form';
 
 export default function tasktracker_spa_init(store) {
@@ -26,21 +25,18 @@ let Tasktracker_Spa = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav />
-        <div class="container">
+        <div className="container">
           <Route path="/" exact={true} render={() =>
             <div>
-              <TaskForm />
-              <Feed tasks={props.tasks} />
+              <TaskForm our_token={props.token} />
+              <Tasks tasks={props.tasks} />
             </div>
           } />
           <Route path="/users" exact={true} render={() =>
-            <div>
-              <UserForm />
-              <Users users={props.users} />
-            </div>
+            <Users users={props.users} />
           } />
           <Route path="/users/:user_id" render={({ match }) =>
-            <Feed tasks={_.filter(props.tasks, (pp) =>
+            <Tasks tasks={_.filter(props.tasks, (pp) =>
               match.params.user_id == pp.user.id)
             } />
           } />

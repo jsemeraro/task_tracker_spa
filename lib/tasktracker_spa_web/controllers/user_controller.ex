@@ -12,6 +12,8 @@ defmodule TasktrackerSpaWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    %{"name" => name, "pass" => password} = user_params
+    user_params = %{name: name, password: password}
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)
