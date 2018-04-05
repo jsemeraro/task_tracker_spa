@@ -1,3 +1,4 @@
+// followed Nat's lecture notes 
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 

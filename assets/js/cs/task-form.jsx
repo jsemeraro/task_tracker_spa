@@ -1,3 +1,4 @@
+// looked at Nat's lecture notes for SPA
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, FormGroup, Label, Input } from 'reactstrap';

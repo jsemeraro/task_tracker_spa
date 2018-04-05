@@ -1,3 +1,4 @@
+// followed from Nat Tuck's lecture notes 
 import store from './store';
 
 class TheServer {

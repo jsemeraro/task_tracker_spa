@@ -1,3 +1,4 @@
+// followed from Nat Tuck's lecture notes
 import React from 'react';
 import Task from './task';
 
