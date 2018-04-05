@@ -15,6 +15,8 @@ defmodule TasktrackerSpaWeb.TaskView do
     %{id: task.id,
       title: task.title,
       descrip: task.descrip,
-      user: render_one(task.user, UserView, "user.json")}
+      user: render_one(task.user, UserView, "user.json"),
+      complete: task.complete,
+      work_time: task.work_time}
   end
 end
