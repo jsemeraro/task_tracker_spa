@@ -3,5 +3,5 @@
 export PORT=5180
 
 cd ~/www/task_tracker_spa
-./bin/task_tracker_spa stop || true
-./bin/task_tracker_spa start
+./bin/tasktracker_spa stop || true
+./bin/tasktracker_spa start

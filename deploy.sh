@@ -27,7 +27,7 @@ if [ -d ~/www/task_tracker_spa ]; then
 fi
 
 mkdir -p ~/www/task_tracker_spa
-REL_TAR=~/task_tracker_spa/_build/prod/rel/task_tracker_spa/releases/0.0.1/task_tracker_spa.tar.gz
+REL_TAR=~/src/task_tracker_spa/_build/prod/rel/tasktracker_spa/releases/0.0.1/tasktracker_spa.tar.gz
 (cd ~/www/task_tracker_spa && tar xzvf $REL_TAR)
 
 MIX_ENV=prod mix ecto.create
