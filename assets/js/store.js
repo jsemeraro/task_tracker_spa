@@ -57,6 +57,8 @@ function form(state = empty_form, action) {
       return empty_form;
     case 'SET_TOKEN':
       return Object.assign({}, state, action.token);
+    case 'SET_TIME':
+      return Object.assign({}, state, action.data);
     default:
       return state;
   }

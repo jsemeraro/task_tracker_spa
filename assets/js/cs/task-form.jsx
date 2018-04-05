@@ -3,13 +3,18 @@ import { connect } from 'react-redux';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import api from '../api';
 import WorkTimeIncr from './work-time-incr';
+import store from '../store';
 
 function TaskForm(props) {
     function update(ev) {
         let tgt = $(ev.target);
 
         let data = {};
-        data[tgt.attr('name')] = tgt.val();
+        if(tgt.prop("checked")) {
+            data[tgt.attr('name')] = true;
+        } else {
+            data[tgt.attr('name')] = tgt.val();
+        }
         let action = {
             type: 'UPDATE_FORM',
             data: data,
@@ -27,6 +32,15 @@ function TaskForm(props) {
         props.dispatch({
             type: 'CLEAR_FORM',
         });
+    }
+    
+    function update_time(time) {
+        let action = {
+            type: 'SET_TIME',
+            data: {work_time: time},
+        };
+        console.log(action);
+        props.dispatch(action);
     }
 
     let users = _.map(props.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
@@ -53,7 +67,7 @@ function TaskForm(props) {
             </FormGroup>
             <FormGroup>
                 <Label for="work_time">Work Time</Label>
-                <WorkTimeIncr time={props.form.work_time} />
+                <WorkTimeIncr time={props.form.work_time} update_time={update_time.bind(this)} />
             </FormGroup>
             <Button onClick={submit} color="primary">Submit</Button>
             <Button onClick={clear}>Clear</Button>
